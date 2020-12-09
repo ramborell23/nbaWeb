@@ -29,6 +29,9 @@ function App() {
               <li>
                 <Link to="/about">About</Link>
               </li>
+              <li>
+                <Link to="/teams">Teams</Link>
+              </li>
               <li>{/* <Link to="/dashboard">Dashboard</Link> */}</li>
             </ul>
           </div>
