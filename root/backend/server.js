@@ -41,15 +41,18 @@ MongoClient.connect(Uri, {
         })
 
         app.get('/draft', (req, res) => {
-            db.collection('draft2020').find().toArray()
-                .then(results => {
-                    console.log('GET ====>', results)
-                    res.json({
-                        players2020: results
-                    })
-                    console.log("SENT")
-                })
-                .catch(error => console.error(error))
+            db.collection("draft2020")
+              .find()
+              .sort({ _id: 1 })
+              .toArray()
+              .then((results) => {
+                console.log("GET ====>", results);
+                res.json({
+                  players2020: results,
+                });
+                console.log("SENT");
+              })
+              .catch((error) => console.error(error));
         })
 
 
