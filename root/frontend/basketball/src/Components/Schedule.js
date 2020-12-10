@@ -24,11 +24,11 @@ export default function Schedule() {
                 return (
                     <div style={{ display: "flex", flexDirection: "row" }}>
                         {console.log(logoDict['Brooklyn Nets'])}
-                    {/* <img src={logoDict[`${game["Home/Neutral"]}`].logo} alt="Team Logo" /> */}
-                    {game["Home/Neutral"]}{" "}
-                    {" "}VS{" "}
-                    {" "}{game["Visitor/Neutral"]}{" "}
-                    {/* <img src={logoDict[`${game["Visitor/Neutral"]}`].logo} alt="Team Logo" /> */}
+                        <img style={{height:20, width:20}} src={logoDict[`${game["Home/Neutral"]}`].logo} alt="Team Logo" />
+                        {game["Home/Neutral"]}{" "}
+                        {" "}VS{" "}
+                        {" "}{game["Visitor/Neutral"]}{" "}
+                        <img style={{height:20, width:20}} src={logoDict[`${game["Visitor/Neutral"]}`].logo} alt="Team Logo" />
                   </div>
                 );
             })}
