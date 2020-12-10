@@ -55,6 +55,21 @@ MongoClient.connect(Uri, {
               .catch((error) => console.error(error));
         })
 
+        app.get('/schedule', (req, res) => {
+            db.collection("schedule2020-2021")
+              .find()
+              .sort({ _id: 1 })
+              .toArray()
+              .then((results) => {
+                console.log("GET ====>", results);
+                res.json({
+                  schedule: results,
+                });
+                console.log("SENT");
+              })
+              .catch((error) => console.error(error));
+        })
+
 
         app.post('/quotes', (req, res) => {
             quotesCollection.insertOne(req.body)

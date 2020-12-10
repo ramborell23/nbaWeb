@@ -7,6 +7,7 @@ import Home from './Components/Home.js';
 import About from './Components/About.js';
 import Scores from "./Components/Scores.js";
 import Stats from "./Components/Stats.js";
+import Schedule from "./Components/Schedule.js";
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
                 listStyleType: "none",
                 color: "white",
                 textDecoration: "none",
-                margin:15
+                margin: 15,
               }}
             >
               <li style={{ color: "white", textDecoration: "none" }}>
@@ -34,6 +35,9 @@ function App() {
               </li>
               <li>
                 <Link to="/stats">Stats</Link>
+              </li>
+              <li>
+                <Link to="/schedule">Schedule</Link>
               </li>
               <li>
                 <Link to="/about">About</Link>
@@ -57,6 +61,9 @@ function App() {
           </Route>
           <Route path="/scores">
             <Scores />
+          </Route>
+          <Route path="/schedule">
+            <Schedule />
           </Route>
           <Route path="/stats">
             <Stats />
