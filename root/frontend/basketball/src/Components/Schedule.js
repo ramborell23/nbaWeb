@@ -22,13 +22,28 @@ export default function Schedule() {
         <div style={{ display: 'flex', flexDirection: "column" }}>
             {data.map(function (game) { 
                 return (
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                        {console.log(logoDict['Brooklyn Nets'])}
-                        <img style={{height:20, width:20}} src={logoDict[`${game["Home/Neutral"]}`].logo} alt="Team Logo" />
-                        {game["Home/Neutral"]}{" "}
-                        {" "}VS{" "}
-                        {" "}{game["Visitor/Neutral"]}{" "}
-                        <img style={{height:20, width:20}} src={logoDict[`${game["Visitor/Neutral"]}`].logo} alt="Team Logo" />
+                  <div style={{ display: "flex", flexDirection: "row" }}>
+                    {/* {console.log(logoDict['Brooklyn Nets'])} */}
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                            {game.Date}
+                            <labe>
+                                Start Time:{game['Start (ET)']}
+                            </labe>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <img
+                          style={{ height: 20, width: 20 }}
+                          src={logoDict[`${game["Home/Neutral"]}`].logo}
+                          alt="Team Logo"
+                        />
+                        {game["Home/Neutral"]} VS {game["Visitor/Neutral"]}{" "}
+                        <img
+                          style={{ height: 20, width: 20 }}
+                          src={logoDict[`${game["Visitor/Neutral"]}`].logo}
+                          alt="Team Logo"
+                        />
+                    <br /> <br />
+                      </div>
+                    </div>
                   </div>
                 );
             })}

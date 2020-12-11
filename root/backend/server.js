@@ -56,8 +56,32 @@ MongoClient.connect(Uri, {
         })
 
         app.get('/schedule', (req, res) => {
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth()).padStart(2, '0'); //January is 0!
+            let yyyy = today.getFullYear();
+
+            today = mm + "/" + dd + "/" + yyyy;
+            // var d = new Date();
+            // 
+            const month = new Array();
+            month[0] = "Jan";
+            month[1] = "Feb";
+            month[2] = "Mar";
+            month[3] = "Apr";
+            month[4] = "May";
+            month[5] = "Jun";
+            month[6] = "Jul";
+            month[7] = "Aug";
+            month[8] = "Sep";
+            month[9] = "Oct";
+            month[10] = "Nov";
+            month[11] = "Dec";
+
+            console.log(`${month[11]} 25 ${yyyy}`)
+           let regexDate =  /\.*`${month[11]} 25 ${yyyy}`.*/g
             db.collection("schedule2020-2021")
-              .find()
+              .find({ Date: { $regex: `.*${month[11]} 25 ${yyyy}.*` } })
               .sort({ _id: 1 })
               .toArray()
               .then((results) => {
@@ -66,6 +90,10 @@ MongoClient.connect(Uri, {
                   schedule: results,
                 });
                 console.log("SENT");
+                today = mm + "/" + dd + "/" + yyyy;
+
+                console.log(mm);
+                console.log(month[11], dd, yyyy);
               })
               .catch((error) => console.error(error));
         })
