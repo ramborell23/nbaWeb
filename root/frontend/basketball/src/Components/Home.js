@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import logoDict from "../Assets/logoDict.js"
+import TodaysGameWidget from "./TodaysGameWidget.js";
+
 let myRe = [/o/g];
 
 export default function Home() {
@@ -43,6 +45,9 @@ export default function Home() {
     console.log("=====>>>>",data)
     return (
         <div>
+            <TodaysGameWidget style={{marginBottom:15}} />
+            <br/>
+            <br/>
             <img src={logoDict.NBATWO.logo}
                 alt="Team Logo"
                 style={{height:'400px', width:"400px"}}/>

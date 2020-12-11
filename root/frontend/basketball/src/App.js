@@ -8,6 +8,8 @@ import About from './Components/About.js';
 import Scores from "./Components/Scores.js";
 import Stats from "./Components/Stats.js";
 import Schedule from "./Components/Schedule.js";
+import Standings from "./Components/Standings.js";
+import TodaysGameWidget from "./Components/TodaysGameWidget.js";
 
 
 function App() {
@@ -40,6 +42,9 @@ function App() {
                 <Link to="/schedule">Schedule</Link>
               </li>
               <li>
+                <Link to="/standings">Standings</Link>
+              </li>
+              <li>
                 <Link to="/about">About</Link>
               </li>
               <li>{/* <Link to="/dashboard">Dashboard</Link> */}</li>
@@ -50,6 +55,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p> */}
+        {/* <TodaysGameWidget/> */}
         <hr />
         {/* <FormPost /> */}
         <Switch>
@@ -67,6 +73,9 @@ function App() {
           </Route>
           <Route path="/stats">
             <Stats />
+          </Route>
+          <Route path="/standings">
+            <Standings />
           </Route>
           {/* <Route path="/dashboard">
             <Dashboard />

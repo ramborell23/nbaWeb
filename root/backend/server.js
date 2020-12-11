@@ -81,7 +81,7 @@ MongoClient.connect(Uri, {
             console.log(`${month[11]} 25 ${yyyy}`)
            let regexDate =  /\.*`${month[11]} 25 ${yyyy}`.*/g
             db.collection("schedule2020-2021")
-              .find({ Date: { $regex: `.*${month[11]} 25 ${yyyy}.*` } })
+              .find({ Date: { $regex: `.*${month[11]} 26 ${yyyy}.*` } })
               .sort({ _id: 1 })
               .toArray()
               .then((results) => {

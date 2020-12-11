@@ -22,13 +22,14 @@ export default function Schedule() {
         <div style={{ display: 'flex', flexDirection: "column" }}>
             {data.map(function (game) { 
                 return (
-                  <div style={{ display: "flex", flexDirection: "row" }}>
+                  <div
+                    style={{ display: "flex", flexDirection: "row" }}
+                    key={game._id.substring(7)}
+                  >
                     {/* {console.log(logoDict['Brooklyn Nets'])} */}
                     <div style={{ display: "flex", flexDirection: "column" }}>
-                            {game.Date}
-                            <labe>
-                                Start Time:{game['Start (ET)']}
-                            </labe>
+                      {game.Date}
+                      <label>Start Time:{game["Start (ET)"]}</label>
                       <div style={{ display: "flex", flexDirection: "row" }}>
                         <img
                           style={{ height: 20, width: 20 }}
@@ -41,7 +42,7 @@ export default function Schedule() {
                           src={logoDict[`${game["Visitor/Neutral"]}`].logo}
                           alt="Team Logo"
                         />
-                    <br /> <br />
+                        <br /> <br />
                       </div>
                     </div>
                   </div>
