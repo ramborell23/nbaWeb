@@ -9,7 +9,7 @@ import Scores from "./Components/Scores.js";
 import Stats from "./Components/Stats.js";
 import Schedule from "./Components/Schedule.js";
 import Standings from "./Components/Standings.js";
-import TodaysGameWidget from "./Components/TodaysGameWidget.js";
+import Fantasy from "./Components/Fantasy.js";
 
 
 function App() {
@@ -45,6 +45,9 @@ function App() {
                 <Link to="/standings">Standings</Link>
               </li>
               <li>
+                <Link to="/fantasy">Fantasy</Link>
+              </li>
+              <li>
                 <Link to="/about">About</Link>
               </li>
               <li>{/* <Link to="/dashboard">Dashboard</Link> */}</li>
@@ -77,9 +80,9 @@ function App() {
           <Route path="/standings">
             <Standings />
           </Route>
-          {/* <Route path="/dashboard">
-            <Dashboard />
-          </Route> */}
+          <Route path="/fantasy">
+            <Fantasy />
+          </Route>
         </Switch>
       </div>
     </Router>
