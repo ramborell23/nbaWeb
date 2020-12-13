@@ -3,6 +3,11 @@ const bodyParser = require('body-parser')
 const app = express()
 require('dotenv').config();
 const cors = require('cors')
+const Nightmare = require("nightmare");
+const cheerio = require("cheerio");
+
+const nightmare = Nightmare({ show: true });
+
 
 const MongoClient = require('mongodb').MongoClient;
 const Uri = process.env.DB_URI
@@ -107,6 +112,54 @@ MongoClient.connect(Uri, {
                 })
                 .catch(error => console.error(error))
         })
+
+        app.get("/scrape", (req, res) => {
+            const url = "https://www.espn.com/nba/scoreboard/_/date/20201211";
+             nightmare
+               .goto(url)
+               .wait("body")
+               .evaluate(() => document.querySelector("body").innerHTML)
+               .end()
+               .then((response) => {
+                 console.log(getData(response));
+                   res.json({
+                     scrape: getData(response),
+                   });
+               })
+               .catch((err) => {
+                 console.log(err);
+               });
+
+             let getData = (html) => {
+               data = [];
+               const $ = cheerio.load(html);
+                 $("div#events").each((elemGames) => {
+                   console.log("ELEem", elemGames);
+                   $("article.scoreboard div div section div table tbody tr").each((i, elem) => {
+                    let title = $(elem).find("td").text();
+                    //  console.log("ELEem", elem);
+                     console.log("ELEem", title);
+                     data.push({
+                       title,
+                     });
+                   });
+                 });
+               return data;
+             };
+        //    db.collection("playerContracts")
+        //      .find()
+        //      .toArray()
+        //      .then((results) => {
+        //        console.log("GET ====>", results);
+        //        res.sendFile(__dirname + "/index.html");
+        //        // res
+        //        res.json({
+        //          players: results,
+        //        });
+        //      })
+        //      .catch((error) => console.error(error));
+         });
+
 
         app.listen(PORT, function () {
             console.log('listening on 8100')
