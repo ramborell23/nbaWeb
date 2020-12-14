@@ -134,13 +134,22 @@ MongoClient.connect(Uri, {
                data = [];
                const $ = cheerio.load(html);
                  $("div#events").each((elemGames) => {
-                   console.log("ELEem", elemGames);
-                   $("article.scoreboard div div section div table tbody tr").each((i, elem) => {
-                    let title = $(elem).find("td").text();
+                  //  console.log("ELEem", elemGames);
+                   $("article.scoreboard div div section div table tbody").each((i, elem) => {
+                    let away = $(elem).find("tr.away").text();
+                    let awayTeamName = $(elem)
+                      .find("tr.away td div.sb-meta h2 a span.sb-team-short")
+                      .text();
+                      let awayTotal = $(elem).find("tr.away td.total").text();
+                      let home = $(elem).find("tr.home").text();
+                      let homeTotal = $(elem).find("tr.home td.total").text();
+                      let homeTeamName = $(elem)
+                        .find("tr.home td div.sb-meta h2 a span.sb-team-short")
+                        .text();
                     //  console.log("ELEem", elem);
-                     console.log("ELEem", title);
+                     console.log("Score >>", awayTeamName, "---", homeTeamName);
                      data.push({
-                       title,
+                       away,
                      });
                    });
                  });
