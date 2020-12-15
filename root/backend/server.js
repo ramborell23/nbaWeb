@@ -6,7 +6,6 @@ const cors = require('cors')
 const Nightmare = require("nightmare");
 const cheerio = require("cheerio");
 
-const nightmare = Nightmare({ show: true });
 
 
 const MongoClient = require('mongodb').MongoClient;
@@ -35,7 +34,7 @@ MongoClient.connect(Uri, {
         app.get('/', (req, res) => {
             db.collection('playerContracts').find().toArray()
                 .then(results => {
-                    console.log('GET ====>', results)
+                    console.log('Home ====>', results)
                     res.sendFile(__dirname + '/index.html')
                     // res
                     res.json({
@@ -51,11 +50,11 @@ MongoClient.connect(Uri, {
               .sort({ _id: 1 })
               .toArray()
               .then((results) => {
-                console.log("GET ====>", results);
+                console.log("GET ====>", results[0]);
                 res.json({
                   players2020: results,
                 });
-                console.log("SENT");
+                // console.log("SENT Draf t");
               })
               .catch((error) => console.error(error));
         })
@@ -90,11 +89,11 @@ MongoClient.connect(Uri, {
               .sort({ _id: 1 })
               .toArray()
               .then((results) => {
-                console.log("GET ====>", results);
+                console.log("GET ====>", results[0]);
                 res.json({
                   schedule: results,
                 });
-                console.log("SENT");
+                console.log("SENT schedule");
                 today = mm + "/" + dd + "/" + yyyy;
 
                 console.log(mm);
@@ -113,66 +112,68 @@ MongoClient.connect(Uri, {
                 .catch(error => console.error(error))
         })
 
-        app.get("/scrape", (req, res) => {
-            const url = "https://www.espn.com/nba/scoreboard/_/date/20201211";
-             nightmare
-               .goto(url)
-               .wait("body")
-               .evaluate(() => document.querySelector("body").innerHTML)
-               .end()
-               .then((response) => {
-                 console.log(getData(response));
-                   res.json({
-                     scrape: getData(response),
-                   });
-               })
-               .catch((err) => {
-                 console.log(err);
-               });
+      app.get("/scrape", (req, res) => {
+        console.log('backend request started')
+        const url = "https://www.espn.com/nba/scoreboard";
+        console.log('Got URL')
+        const nightmare = Nightmare({ show: true });
 
-             let getData = (html) => {
-               data = [];
-               const $ = cheerio.load(html);
-                 $("div#events").each((elemGames) => {
-                  //  console.log("ELEem", elemGames);
-                   $("article.scoreboard div div section div table tbody").each((i, elem) => {
-                    let away = $(elem).find("tr.away").text();
-                    let awayTeamName = $(elem)
-                      .find("tr.away td div.sb-meta h2 a span.sb-team-short")
-                      .text();
-                      let awayTotal = $(elem).find("tr.away td.total").text();
-                      let home = $(elem).find("tr.home").text();
-                      let homeTotal = $(elem).find("tr.home td.total").text();
+        nightmare
+        .goto(url)
+        .wait("body")
+        .evaluate(() => document.querySelector("body").innerHTML)
+        .end()
+        .then((response) => {
+          console.log('Good Bye')
+          console.log(getData(response[0]));
+          res.json({
+            scrape: getData(response),
+          });
+          console.log('backend request ended')
+        })
+        .catch((err) => {
+          res.json({error:'aerror'});
+          console.log(err);
+        });
+        
+        let getData = (html) => {
+          data = [];
+          const $ = cheerio.load(html);
+          $("div#events").each((elemGames) => {
+            $("article.scoreboard div div section div table tbody").each((i, elem) => {                     
+              
+              let awayTeamName = $(elem)
+              .find("tr.away td div.sb-meta h2 a span.sb-team-short")
+              .text();
+              let awayTotal = $(elem).find("tr.away td.total").text();
+
+                     let homeTotal = $(elem).find("tr.home td.total").text();
                       let homeTeamName = $(elem)
                         .find("tr.home td div.sb-meta h2 a span.sb-team-short")
                         .text();
                     //  console.log("ELEem", elem);
-                     console.log("Score >>", awayTeamName, "---", homeTeamName);
+                     let game = {
+                       id: Math.random() * (10000000 - 0) + 0,
+                       awayTeamName: awayTeamName,
+                       awayTotal: awayTotal,
+                       homeTeamName: homeTeamName,
+                       homeTotal: homeTotal,
+                     };
+                     
+                    //  console.log("Sending to front ===>");
+                    //  console.log("Score >>", awayTeamName, "---", homeTeamName);
+                    //  console.log("Score >>", awayTotal, "---", homeTotal);
                      data.push({
-                       away,
+                       game,
                      });
                    });
                  });
-               return data;
-             };
-        //    db.collection("playerContracts")
-        //      .find()
-        //      .toArray()
-        //      .then((results) => {
-        //        console.log("GET ====>", results);
-        //        res.sendFile(__dirname + "/index.html");
-        //        // res
-        //        res.json({
-        //          players: results,
-        //        });
-        //      })
-        //      .catch((error) => console.error(error));
-         });
-
-
-        app.listen(PORT, function () {
+               return data
+          };
+        });
+      app.listen(PORT, function () {
             console.log('listening on 8100')
-        })
+      })
     }).catch(error => console.error(error))
 
 
