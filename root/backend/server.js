@@ -163,6 +163,17 @@ MongoClient.connect(Uri, {
                     //  console.log("Sending to front ===>");
                     //  console.log("Score >>", awayTeamName, "---", homeTeamName);
                     //  console.log("Score >>", awayTotal, "---", homeTotal);
+              var time = new Date();
+              console.log(
+                time.toLocaleString("en-US",
+                //   {
+                //   hour: "numeric",
+                //   minute: "numeric",
+                //   // seconds: "numeric",
+                //   hour12: true,
+                // }
+                )
+              );
                      data.push({
                        game,
                      });

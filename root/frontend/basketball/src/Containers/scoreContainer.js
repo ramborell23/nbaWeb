@@ -7,15 +7,15 @@ import CurrentScores from "../Components/CurrentScores.js";
 
 class ScoresCon extends React.Component {
     render() {
-      // console.log("ScoresCon==>", this.props.scores)
+      console.log("ScoresCon==>", this.props.loadScores);
       
         return (
           <div>
             {/* <button handleClick={this.props.loadColor}>Outside Scores</button> */}
             <br />
             <CurrentScores
-              // loadScores={this.props.loadScores()}
-              handleClick={this.props.loadScores}
+              loadScores={this.props.loadScores}
+              // handleClick={this.props.loadScores}
               scores={this.props.scores}
             ></CurrentScores>
             <br />

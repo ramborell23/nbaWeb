@@ -1,26 +1,50 @@
 import React from "react";
 import logoDict from "../Assets/logoDict";
+const time = new Date();
 
 class CurrentScores extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     isLoaded: false,
-  //   };
-  // }
-  componentDidMount() {
-    // this.props.loadScores();
+  constructor() {
+    super();
+    this.state = {
+      isLoaded: false,
+      count: 0,
+    };
   }
-  render() {
-    // console.log(this.props);
-    // setTimeout(function (){
-    //   this.props.handleClick()
 
-    // },100)
-    // setInterval(function () {
-    //   this.props.handleClick()
-    //   alert("Hello");
-    // }, 120000);
+  incrementScores = () => {
+    const { count } = this.state;
+    console.log(
+      time.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      })
+    );
+    console.log("Reloaded", count, this.props);
+    this.setState({ count: count + 1 });
+    this.props.loadScores();
+
+  };
+
+  componentDidMount() {
+    console.log("Reloaded", this.props);
+    setInterval(this.incrementScores, 60000);
+  }
+
+  render() {
+    const { count } = this.state;
+
+    setInterval(function () {
+      console.log(
+        time.toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        })
+      );
+      console.log("Reloaded", count, this.props);
+    }, 60000);
+
 
     return (
       <div className="wrapper">
@@ -37,43 +61,50 @@ class CurrentScores extends React.Component {
           >
             Change Score
           </button>
-          <div>
-            {this.props.scores.map((game) => (
-              <div
-                key={`${game.id}`}
-                style={{
-                  borderColor: "red",
-                  borderWidth: "2x",
-                  borderStyle: "solid",
-                }}
-              >
-                {game.awayteamName}
-                <label style={{ display: "flex", flexDirection: "column" }}>
-                  {game.game.awayTeamName}
-                  <hr />
-                  {game.game.awayTotal}
+          <div style={{ display: "flex", flexDirection: "row", overflowX: 'auto', marginRight: '15px', alignItems:'center' }}>
+        {this.props.scores.map(function (game) {
+          return (
+            <div
+              style={{ display: "flex", flexDirection: "row" }}
+              key={game.id}
+            >
+              {/* {console.log(logoDict['Brooklyn Nets'])} */}
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {/* {game.Date} */}
+                <label style={{ fontSize: 14 }}>{game["Start (ET)"]}</label>
+                <div style={{ display: "flex", flexDirection: "row" }}>
                   <img
-                    style={{ height: 25, width: 25 }}
-                    src={logoDict[`${game.game.awayTeamName}`].logo}
-                    alt="Away Team"
-                  />
-                </label>
-                <hr />
-                <label style={{ display: "flex", flexDirection: "column" }}>
-                  {game.game.homeTotal}
-                  <hr />
-                  {game.game.homeTeamName}
-                  <img
-                    style={{ height: 25, width: 25 }}
+                    style={{ height: 30, width: 30 }}
                     src={logoDict[`${game.game.homeTeamName}`].logo}
-                    alt="Home Team"
+                    alt="Team Logo"
                   />
-                </label>
+                  <label style={{ fontSize: 14 }}>
+                    {game.game.homeTeamName}
+                    <br />
+                    {game.game.homeTotal}
+                    VS
+                  <hr/>
+                  <br/>
+                  <hr/>
+                    {game.game.awayTotal}
+                    <br />
+                    {game.game.awayTeamName}{" "}
+                  </label>
+                  <img
+                    style={{ height: 30, width: 30, alignSelf: "flex-end" }}
+                    src={logoDict[`${game.game.awayTeamName}`].logo}
+                    alt="Team Logo"
+                  />
+                  <br /> <br />
+                  <hr />
+                </div>
               </div>
-            ))}
+            </div>
+          );
+        })}
           </div>
-        </div>
-      </div>
+          </div>
+          </div>
     );
   }
 }
