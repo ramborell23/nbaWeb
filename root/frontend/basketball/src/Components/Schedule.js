@@ -27,18 +27,18 @@ export default function Schedule() {
                     key={game._id.substring(7)}
                   >
                     {/* {console.log(logoDict['Brooklyn Nets'])} */}
-                    <div style={{ display: "flex", flexDirection: "column" }}>
+                    <div style={{ display: "flex", flexDirection: "column", fontSize:'20px' }}>
                       {game.Date}
                       <label>Start Time:{game["Start (ET)"]}</label>
                       <div style={{ display: "flex", flexDirection: "row" }}>
                         <img
-                          style={{ height: 20, width: 20 }}
+                          style={{ height: 30, width: 30 }}
                           src={logoDict[`${game["Home/Neutral"]}`].logo}
                           alt="Team Logo"
                         />
                         {game["Home/Neutral"]} VS {game["Visitor/Neutral"]}{" "}
                         <img
-                          style={{ height: 20, width: 20 }}
+                          style={{ height: 30, width: 30 }}
                           src={logoDict[`${game["Visitor/Neutral"]}`].logo}
                           alt="Team Logo"
                         />

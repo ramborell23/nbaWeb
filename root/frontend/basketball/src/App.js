@@ -12,6 +12,7 @@ import Stats from "./Components/Stats.js";
 import Schedule from "./Components/Schedule.js";
 import Standings from "./Components/Standings.js";
 import Fantasy from "./Components/Fantasy.js";
+import CurrentScores from "./Components/CurrentScores.js";
 import Scorecon from "./Containers/scoreContainer.js";
 // import Boxcon from "./Containers/box-container.js";
 import Boxcon from "./Containers/boxContainer.js";
@@ -37,19 +38,22 @@ class App extends React.Component {
       <Router>
         <div className="App">
           <header className="App-header">
-            <div>
+            <div
+              style={{
+                width: "80%",
+              }}
+            >
               <ul
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  justifyContent: "space-around",
+                  justifyContent: "space-between",
                   listStyleType: "none",
                   color: "white",
                   textDecoration: "none",
-                  margin: 15,
+                  width: "100%",
                 }}
               >
-                {/* <BoxCon/> */}
                 <li style={{ color: "white", textDecoration: "none" }}>
                   <Link to="/">Home</Link>
                 </li>
@@ -76,8 +80,8 @@ class App extends React.Component {
             </div>
           </header>
 
+          <CurrentScores scores={this.props.scores} />
           <hr />
-          {/* <FormPost /> */}
           <Switch>
             <Route exact path="/">
               <Home />
@@ -89,7 +93,7 @@ class App extends React.Component {
               <Scorecon />
             </Route>
             <Route path="/schedule">
-              <Boxcon />
+              <Schedule />
             </Route>
             <Route path="/stats">
               <Stats />
@@ -98,7 +102,7 @@ class App extends React.Component {
               <Standings />
             </Route>
             <Route path="/fantasy">
-              <Fantasy />
+              <Stats />
             </Route>
           </Switch>
         </div>

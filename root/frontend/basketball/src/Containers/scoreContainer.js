@@ -13,11 +13,12 @@ class ScoresCon extends React.Component {
           <div>
             {/* <button handleClick={this.props.loadColor}>Outside Scores</button> */}
             <br />
-            <CurrentScores
+            {/* <CurrentScores
               loadScores={this.props.loadScores}
               // handleClick={this.props.loadScores}
               scores={this.props.scores}
-            ></CurrentScores>
+            ></CurrentScores> */}
+            Current Scores
             <br />
             <br />
             {/* <Scores handleClick={this.props.loadScores} scores={this.props.scores}></Scores> */}
